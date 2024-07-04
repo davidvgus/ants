@@ -26,9 +26,16 @@ func randomize_wander():
     #move_direction = Vector2(randf_range( - 1, 1), randf_range( - 1, 1)).normalized()
 
     wander_time = randf_range(0.01, .1)
+func add_to_path():
+    if !ant:
+        return
+    else:
+        ant.path.append(ant.global_position)
 
 func Enter() -> void:
     randomize_wander()
+    if ant:
+        ant.lighten_sprite()
 
 func Exit() -> void:
     pass
@@ -38,12 +45,15 @@ func Update(_delta: float) -> void:
         wander_time -= _delta
     else:
         randomize_wander()
+        add_to_path()
 
 func randomize_direction():
     return Vector2(randf_range( - 1.0, 1.0), randf_range( - 1.0, 1.0)).normalized()
 
 func Physics_Update(_delta: float) -> void:
+    
     if ant:
+        ant.lighten_sprite()
         #ant.velocity = move_direction * move_speed
 
         var screen_size = get_viewport().size
@@ -72,6 +82,15 @@ func Physics_Update(_delta: float) -> void:
         ant.velocity = move_direction.normalized() * move_speed
 
     #move_and_slide(move_direction * move_speed)
-    var direction = (food.global_position - ant.global_position)
-    if direction.length() < 50:
-        transitioned.emit(self, "AntFollow")
+    #var direction = (food.global_position - ant.global_position)
+    #if direction.length() < 50:
+    #    transitioned.emit(self, "AntFollow")
+func _enter_tree():
+    var food_nodes = get_tree().get_nodes_in_group("food")
+    for food_node in food_nodes:
+        food_node.connect("ant_entered", Callable(self, "_on_ant_entered_food"))
+
+func _on_ant_entered_food(ant_body):
+    print("inside _on_ant_entered_food Ant entered food")
+    if ant_body == ant:
+        transitioned.emit(self, "AntGoHome")

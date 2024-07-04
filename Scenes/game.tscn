@@ -6,9 +6,8 @@
 
 [node name="Game" type="Node"]
 script = ExtResource("1_7c7od")
-
-[node name="Food" parent="." instance=ExtResource("3_4uhpw")]
-position = Vector2(33, 29)
+create_ants = true
+ant_delay = 0.5
 
 [node name="Home" parent="." instance=ExtResource("4_onc10")]
 position = Vector2(1087, 565)
@@ -17,3 +16,17 @@ position = Vector2(1087, 565)
 
 [node name="AndCreationLocation" type="Node2D" parent="."]
 position = Vector2(1087, 537)
+
+[node name="foods" type="Node" parent="."]
+
+[node name="Food" parent="foods" instance=ExtResource("3_4uhpw")]
+position = Vector2(1134, 81)
+
+[node name="Food2" parent="foods" instance=ExtResource("3_4uhpw")]
+position = Vector2(547, 396)
+
+[node name="Food3" parent="foods" instance=ExtResource("3_4uhpw")]
+position = Vector2(769, 204)
+
+[node name="Food4" parent="foods" instance=ExtResource("3_4uhpw")]
+position = Vector2(941, 122)

@@ -1,16 +1,16 @@
 #Godot 4.2.2
 extends Node
-
-var ant_delay: float = 0.25
+@export var create_ants: bool = false
+@export var ant_delay: float = 0.25
 var act: float = 0
 
 func _ready() -> void:
-    print("print in game.gd _ready")
+    #print("print in game.gd _ready")
     pass
 
 func _process(delta: float) -> void:
     act += delta
-    if act > ant_delay:
+    if act > ant_delay&&create_ants:
         act = 0
         var ant_scene = load("res://Scenes/ant.tscn")
         var ant_instance = ant_scene.instantiate()

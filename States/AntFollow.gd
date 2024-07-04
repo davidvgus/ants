@@ -12,7 +12,7 @@ func enter() -> void:
         if !food:
             return
 func exit() -> void:
-    ant.lighten_sprite(255)
+    ant.lighten_sprite()
     pass
 
 func Physics_Update(delta: float) -> void:
@@ -26,4 +26,5 @@ func Physics_Update(delta: float) -> void:
         ant.velocity = direction.normalized() * move_speed
     
     if direction.length() < 20:
+        ant.current_food_target = null
         transitioned.emit(self, "AntGoHome")
