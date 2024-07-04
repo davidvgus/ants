@@ -7,8 +7,12 @@ class_name Ant extends CharacterBody2D
 @onready var path := []
 @onready var nav_point := preload ("res://Scenes/nav_point.tscn")
 @onready var nozzle = $Nozzle
+@onready var ant_color = null
 
 var current_food_target = null
+
+func _ready() -> void:
+    create_ant_path_color()
 
 func _physics_process(delta: float) -> void:
     move_and_slide()
@@ -35,5 +39,10 @@ func drop_nav_point():
     var new_nav_point = nav_point.instantiate()
     new_nav_point.global_position = nozzle.global_position
     new_nav_point.owner_ant = self
+    new_nav_point.set_color(ant_color)
     #new_nav_point.connect("ant_entered", Callable(self, "_on_nav_point_entered"))
     get_parent().add_child(new_nav_point)
+
+func create_ant_path_color():
+    var path_color = Color(randf(), randf(), randf())
+    ant_color = path_color

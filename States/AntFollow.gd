@@ -6,12 +6,10 @@ class_name AntFollow extends State
 @onready var food := get_node("/root/Game/Food")
 
 func enter() -> void:
-    if !food:
-        food = get_tree().root.get_node("Game").get_node("Food")
-        #food = $Food
-        if !food:
-            return
-func exit() -> void:
+    pass
+
+func Exit() -> void:
+    print("AntFollow exit")
     ant.lighten_sprite()
     pass
 

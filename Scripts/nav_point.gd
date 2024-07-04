@@ -1,4 +1,6 @@
+#Godot 4.2.2
 class_name NavPoint extends Area2D
+@onready var sprite := $Sprite2D
 
 var can_free = false
 var owner_ant = null
@@ -23,3 +25,7 @@ func _on_body_entered(body: Node) -> void:
 func _on_body_exited(body: Node) -> void:
     if body is Ant:
         can_free = true
+
+func set_color(ant_color) -> void:
+    sprite = $Sprite2D
+    sprite.modulate = ant_color
