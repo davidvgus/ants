@@ -31,6 +31,7 @@ func add_to_path():
         return
     else:
         ant.path.append(ant.global_position)
+        ant.drop_nav_point()
 
 func Enter() -> void:
     randomize_wander()
@@ -90,7 +91,7 @@ func _enter_tree():
     for food_node in food_nodes:
         food_node.connect("ant_entered", Callable(self, "_on_ant_entered_food"))
 
-func _on_ant_entered_food(ant_body):
-    print("inside _on_ant_entered_food Ant entered food")
+func _on_ant_entered_food(ant_body, food):
     if ant_body == ant:
-        transitioned.emit(self, "AntGoHome")
+        ant.current_food_target = food
+        transitioned.emit(self, "AntFollow")

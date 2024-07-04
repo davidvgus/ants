@@ -16,15 +16,16 @@ func exit() -> void:
     pass
 
 func Physics_Update(delta: float) -> void:
-    var fgp: Vector2 = food.global_position
+    var current_food_target = ant.current_food_target
+    var fgp: Vector2 = current_food_target.global_position
     var agp: Vector2 = ant.global_position
     var direction = (fgp - agp)
 
     ant.turn_red()
 
-    if direction.length() > 20:
+    if direction.length() > 5:
         ant.velocity = direction.normalized() * move_speed
     
-    if direction.length() < 20:
+    if direction.length() < 2:
         ant.current_food_target = null
         transitioned.emit(self, "AntGoHome")

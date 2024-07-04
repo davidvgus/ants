@@ -13,4 +13,4 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node) -> void:
     if body is Ant:
-        ant_entered.emit(body)
+        ant_entered.emit(body, self)

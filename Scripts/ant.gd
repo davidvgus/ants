@@ -5,6 +5,8 @@ class_name Ant extends CharacterBody2D
 @export var factor: float = 0.5
 @onready var ant := $"."
 @onready var path := []
+@onready var nav_point := preload ("res://Scenes/nav_point.tscn")
+@onready var nozzle = $Nozzle
 
 var current_food_target = null
 
@@ -28,3 +30,10 @@ func turn_red():
 func turn_green():
     if sprite:
         sprite.modulate = Color(0, 1, 0)
+
+func drop_nav_point():
+    var new_nav_point = nav_point.instantiate()
+    new_nav_point.global_position = nozzle.global_position
+    new_nav_point.owner_ant = self
+    #new_nav_point.connect("ant_entered", Callable(self, "_on_nav_point_entered"))
+    get_parent().add_child(new_nav_point)

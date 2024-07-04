@@ -8,8 +8,8 @@
 [ext_resource type="Script" path="res://States/AntGoHome.gd" id="6_q1daf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ktgnw"]
-radius = 17.0
-height = 42.0
+radius = 17.6667
+height = 40.0
 
 [node name="Ant" type="CharacterBody2D" groups=["ants"]]
 scale = Vector2(0.3, 0.3)
@@ -38,3 +38,6 @@ script = ExtResource("5_va3jl")
 
 [node name="AntGoHome" type="Node" parent="StateMachine"]
 script = ExtResource("6_q1daf")
+
+[node name="Nozzle" type="Node2D" parent="."]
+position = Vector2(0, 13.3333)
