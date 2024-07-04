@@ -1,9 +1,10 @@
+#godot 4.2.2
 class_name AntIdle extends State
 
-@export var ant: CharacterBody2D
 @export var move_speed: float = 100.0
 @export var move_direction: Vector2 = Vector2.ZERO
 
+@onready var ant = self.get_parent().get_parent()
 @onready var food = get_node("/root/Game/Food")
 
 var wander_time: float = 0
@@ -27,6 +28,7 @@ func randomize_wander():
     wander_time = randf_range(0.01, .1)
 
 func Enter() -> void:
+    print("AntIdle Enter")
     randomize_wander()
 
 func Exit() -> void:
@@ -38,22 +40,40 @@ func Update(_delta: float) -> void:
     else:
         randomize_wander()
 
+func randomize_direction():
+    return Vector2(randf_range( - 1.0, 1.0), randf_range( - 1.0, 1.0)).normalized()
+
 func Physics_Update(_delta: float) -> void:
     if ant:
-        ant.velocity = move_direction * move_speed
+        #ant.velocity = move_direction * move_speed
 
         var screen_size = get_viewport().size
-        var next_position = ant.global_position + move_direction * move_speed * _delta
-        
-        # Check for horizontal screen boundaries
-        if next_position.x < 0 or next_position.x > screen_size.x:
-            move_direction.x = -move_direction.x # Reverse horizontal direction
-        
-        # Check for vertical screen boundaries (if needed)
-        if next_position.y < 0 or next_position.y > screen_size.y:
-            move_direction.y = -move_direction.y # Reverse vertical direction
-    
+        var buffer = 10.0
+
+    # Randomize direction slightly to avoid getting stuck
+
+          # Adjust for horizontal screen bounds with buffer
+        if ant.global_position.x < buffer:
+            move_direction.x = abs(move_direction.x) # Ensure positive direction
+            ant.global_position.x = buffer
+        elif ant.global_position.x > screen_size.x - buffer:
+            move_direction.x = -abs(move_direction.x) # Ensure negative direction
+            ant.global_position.x = screen_size.x - buffer
+
+        # Adjust for vertical screen bounds with buffer
+        if ant.global_position.y < buffer:
+            move_direction.y = abs(move_direction.y) # Ensure positive direction
+            ant.global_position.y = buffer
+        elif ant.global_position.y > screen_size.y - buffer:
+            move_direction.y = -abs(move_direction.y) # Ensure negative direction
+            ant.global_position.y = screen_size.y - buffer
+
+        # Apply random direction after ensuring the ant is within bounds
+        #move_direction += randomize_direction()
+        ant.velocity = move_direction.normalized() * move_speed
+
     #move_and_slide(move_direction * move_speed)
     var direction = (food.global_position - ant.global_position)
-    if direction.length() < 200:
+    if direction.length() < 220:
+        print("AntIdle: Transitioning to AntFollow")
         transitioned.emit(self, "AntFollow")

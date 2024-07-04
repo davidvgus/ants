@@ -7,7 +7,9 @@
 radius = 103.121
 
 [node name="Food" type="Area2D"]
-scale = Vector2(0.13, 0.13)
+scale = Vector2(0.1, 0.1)
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_cq7af")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvdnvvd8stnnf"]
+[gd_scene load_steps=8 format=3 uid="uid://bvdnvvd8stnnf"]
 
 [ext_resource type="Script" path="res://Scripts/ant.gd" id="1_dchjr"]
 [ext_resource type="Texture2D" uid="uid://ctf84d1e1v1hb" path="res://assets/images/spaceAstronauts_002.png" id="1_r446x"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="3_rut37"]
 [ext_resource type="Script" path="res://States/AntIdle.gd" id="4_wifeu"]
 [ext_resource type="Script" path="res://States/AntFollow.gd" id="5_va3jl"]
+[ext_resource type="Script" path="res://States/AntGoHome.gd" id="6_q1daf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ktgnw"]
 radius = 17.0
@@ -12,6 +13,8 @@ height = 42.0
 
 [node name="Ant" type="CharacterBody2D"]
 scale = Vector2(0.3, 0.3)
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_dchjr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -25,12 +28,13 @@ shape = SubResource("CapsuleShape2D_ktgnw")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_rut37")
-initial_state = NodePath("AntFollow")
+initial_state = NodePath("AntIdle")
 
-[node name="AntIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("ant")]
+[node name="AntIdle" type="Node" parent="StateMachine"]
 script = ExtResource("4_wifeu")
-ant = NodePath("../..")
 
-[node name="AntFollow" type="Node" parent="StateMachine" node_paths=PackedStringArray("ant")]
+[node name="AntFollow" type="Node" parent="StateMachine"]
 script = ExtResource("5_va3jl")
-ant = NodePath("../..")
+
+[node name="AntGoHome" type="Node" parent="StateMachine"]
+script = ExtResource("6_q1daf")
