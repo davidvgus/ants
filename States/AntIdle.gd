@@ -28,7 +28,6 @@ func randomize_wander():
     wander_time = randf_range(0.01, .1)
 
 func Enter() -> void:
-    print("AntIdle Enter")
     randomize_wander()
 
 func Exit() -> void:
@@ -74,6 +73,5 @@ func Physics_Update(_delta: float) -> void:
 
     #move_and_slide(move_direction * move_speed)
     var direction = (food.global_position - ant.global_position)
-    if direction.length() < 220:
-        print("AntIdle: Transitioning to AntFollow")
+    if direction.length() < 50:
         transitioned.emit(self, "AntFollow")

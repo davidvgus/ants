@@ -9,20 +9,14 @@ func _ready() -> void:
     pass
 
 func Enter() -> void:
-    print("AntGoHome Enter")
     if !home:
-        print(home.name)
-        if !home:
-            return
+        return
 
 func Exit() -> void:
-    print("AntGoHome Exit")
     if ant:
         ant.lighten_sprite()
 
 func Physics_Update(delta: float) -> void:
-    print(self.name)
-    #ant = self.get_parent().get_parent()
     ant.darken_sprite(0.7)
     var hgp: Vector2 = home.global_position
     var agp: Vector2 = ant.global_position
