@@ -3,6 +3,7 @@ extends Node
 @export var create_ants: bool = false
 @export var ant_delay: float = 0.25
 var act: float = 0
+@onready var pheremones_node := $pheremones
 
 func _ready() -> void:
     #print("print in game.gd _ready")
@@ -19,9 +20,11 @@ func _process(delta: float) -> void:
 
 func _input(event) -> void:
     if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-        var food = get_node("Food")
-        if food:
-            food.global_position = get_viewport().get_mouse_position()
+        var pheromone = load("res://Scenes/pheromone.tscn")
+        print(pheromone)
+        var new_pheromone = pheromone.instantiate()
+        pheremones_node.add_child(new_pheromone)
+        new_pheromone.global_position = get_viewport().get_mouse_position()
 
     if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
         var ant_scene = load("res://Scenes/ant.tscn")

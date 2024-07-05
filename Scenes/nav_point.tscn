@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_klj7w"]
 radius = 13.0
 
-[node name="NavPoint" type="Area2D"]
+[node name="NavPoint" type="Area2D" groups=["nav_points"]]
 scale = Vector2(0.3, 0.3)
 collision_layer = 8
 collision_mask = 2

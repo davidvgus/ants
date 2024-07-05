@@ -6,7 +6,6 @@
 
 [node name="Game" type="Node"]
 script = ExtResource("1_7c7od")
-create_ants = true
 ant_delay = 1.0
 
 [node name="Home" parent="." instance=ExtResource("4_onc10")]
@@ -42,3 +41,5 @@ position = Vector2(438, 149)
 
 [node name="Food8" parent="foods" instance=ExtResource("3_4uhpw")]
 position = Vector2(599, 68)
+
+[node name="pheremones" type="Node" parent="."]

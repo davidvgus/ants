@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 2d_physics/layer_2="ants"
 2d_physics/layer_3="food"
 2d_physics/layer_4="navpoints"
+2d_physics/layer_5="pheromone"
 
 [rendering]
 
