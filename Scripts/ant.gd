@@ -4,12 +4,15 @@ class_name Ant extends CharacterBody2D
 @onready var sprite := $Sprite2D
 @export var factor: float = 0.5
 @onready var ant := $"."
-@onready var path := []
+var path := []
 @onready var nav_point := preload ("res://Scenes/nav_point.tscn")
-@onready var nozzle = $Nozzle
-@onready var ant_color = null
+@onready var pheromone := preload ("res://Scenes/pheromone.tscn")
+@onready var nozzle = $Sprite2D/Nozzle
+var ant_color = null
+#var move_direction = Vector2.ZERO
 
 var current_food_target = null
+var last_pheromone_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
     create_ant_path_color()
@@ -33,7 +36,7 @@ func turn_red():
 
 func turn_green():
     if sprite:
-        sprite.modulate = Color(0, 1, 0)
+        sprite.modulate = Color(0, 1, 0, 1)
 
 func drop_nav_point():
     var new_nav_point = nav_point.instantiate()
@@ -43,6 +46,22 @@ func drop_nav_point():
     #new_nav_point.connect("ant_entered", Callable(self, "_on_nav_point_entered"))
     get_parent().add_child(new_nav_point)
 
+func drop_pheromone():
+    if can_drop_pheromone():
+        var new_pheromone = pheromone.instantiate()
+        new_pheromone.global_position = nozzle.global_position
+        get_parent().add_child(new_pheromone)
+        last_pheromone_position = nozzle.global_position
+
+func can_drop_pheromone() -> bool:
+    if last_pheromone_position == null:
+        return true
+    var max_diameter = Pheromone.MAX_RADIUS * 2
+    var current_distance = nozzle.global_position.distance_to(last_pheromone_position)
+    return current_distance > max_diameter
+
 func create_ant_path_color():
     var path_color = Color(randf(), randf(), randf())
     ant_color = path_color
+
+

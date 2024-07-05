@@ -9,7 +9,6 @@ func enter() -> void:
     pass
 
 func Exit() -> void:
-    print("AntFollow exit")
     ant.lighten_sprite()
     pass
 

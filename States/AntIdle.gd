@@ -6,7 +6,7 @@ class_name AntIdle extends State
 
 @onready var ant = self.get_parent().get_parent()
 @onready var food = get_node("/root/Game/Food")
-
+@onready var game = get_node("/root/Game")
 var wander_time: float = 0
 
 func randomize_wander():
@@ -31,7 +31,8 @@ func add_to_path():
         return
     else:
         ant.path.append(ant.global_position)
-        ant.drop_nav_point()
+        if game.enable_nav_points:
+            ant.drop_nav_point()
 
 func Enter() -> void:
     randomize_wander()
@@ -40,8 +41,15 @@ func Enter() -> void:
 
 func Exit() -> void:
     pass
+    
+func connect_to_pheromone(pheromone):
+    pheromone.connect("pheromone_entered", Callable(self, "_on_body_entered"))
 
 func Update(_delta: float) -> void:
+#    var pheromones = get_tree().get_nodes_in_group("pheromones")
+#    for pheromone in pheromones:
+#        if not is_connected("pheromone_entered", Callable(pheromone, "_on_body_entered")):
+#            connect_to_pheromone(pheromone)
     if wander_time > 0:
         wander_time -= _delta
     else:
@@ -95,3 +103,8 @@ func _on_ant_entered_food(ant_body, food):
     if ant_body == ant:
         ant.current_food_target = food
         transitioned.emit(self, "AntFollow")
+
+func _on_body_entered(body: Node2D) -> void:
+    if body is Ant:
+        print("on_Pheromone_body_entered: antidle: inside pheromone area")
+        pass

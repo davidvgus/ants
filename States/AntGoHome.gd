@@ -18,7 +18,7 @@ func Exit() -> void:
     pass
 
 func Physics_Update(delta: float) -> void:
-    ant.darken_sprite()
+    ant.turn_green()
 
     #var hgp: Vector2 = home.global_position
     #var agp: Vector2 = ant.global_position
@@ -30,6 +30,9 @@ func Physics_Update(delta: float) -> void:
         var target_point = ant.path[ant.path.size() - 1]
         var direction = (target_point - ant.global_position)
         ant.velocity = direction.normalized() * move_speed
+        ant.drop_pheromone()
+        #if direction.length() > 20:
+        #    ant.drop_pheromone()
 
         if direction.length() < 1:
             ant.path.remove_at(ant.path.size() - 1)
