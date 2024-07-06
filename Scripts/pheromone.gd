@@ -6,13 +6,14 @@ class_name Pheromone extends Area2D
 var strength: float = 50.0
 var evaporation_rate: float = 10.0
 const MIN_RADIUS: float = 0.1
-const MAX_RADIUS: float = 13.0
+const MAX_RADIUS: float = 10.0
 
 func _ready() -> void:
     add_to_group("pheromones")
     creation_time = Time.get_unix_time_from_system()
     connect("area_entered", Callable(self, "_on_Pheromone_area_entered"))
     connect("body_entered", Callable(self, "_on_body_entered"))
+    connect("body_exited", Callable(self, "_on_body_exited"))
 
 func _process(delta: float) -> void:
     strength -= evaporation_rate * delta
@@ -37,7 +38,11 @@ func _on_Pheromone_area_entered(area: Area2D) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
     if body is Ant:
-        #print("on_Pheromone_body_entered: antidle: inside pheromone area")
+        body.tasted_pheromone(self)
+        pass
+func _on_body_exited(body: Node2D) -> void:
+    if body is Ant:
+        body.stopped_tasting_pheromone(self)
         pass
 
 static func get_min_radius() -> float:

@@ -10,7 +10,6 @@ func _ready() -> void:
         if child is State:
             states[child.name.to_lower()] = child
             child.transitioned.connect(on_child_transition)
-            #child._enter_tree()
 
     if initial_state:
         initial_state.Enter()

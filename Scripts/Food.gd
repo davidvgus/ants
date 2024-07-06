@@ -1,5 +1,6 @@
 #godot 4.2.2
 class_name Food extends Area2D
+@export var food_amout: int = 1
 
 signal ant_entered
 
@@ -7,10 +8,16 @@ signal ant_entered
 func _ready() -> void:
     connect("body_entered", Callable(self, "_on_body_entered"))
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-    pass
+    if food_amout <= 0:
+        #queue_free()
+        set_collision_layer_value(0, false) # Assuming it's on the first layer
+        set_collision_mask_value(0, false) # Assuming it affects the first layer
+        # Make the node invisible
+        visible = false
+        disconnect("body_entered", Callable(self, "_on_body_entered"))
 
 func _on_body_entered(body: Node) -> void:
     if body is Ant:
+        food_amout -= 1
         ant_entered.emit(body, self)

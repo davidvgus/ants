@@ -2,6 +2,7 @@
 extends Node
 @export var create_ants: bool = false
 @export var ant_release_delay: float = 0.25
+@export var max_ants: int = 10
 var act: float = 0
 @onready var pheremones_node := $pheremones
 @onready var slider := $UI/Time
@@ -14,7 +15,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
     act += delta
-    if act > ant_release_delay&&create_ants:
+    if act > ant_release_delay&&create_ants&&$Ants.get_child_count() < max_ants:
         act = 0
         var ant_scene = load("res://Scenes/ant.tscn")
         var ant_instance = ant_scene.instantiate()

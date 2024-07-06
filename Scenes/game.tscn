@@ -8,6 +8,7 @@
 [node name="Game" type="Node"]
 script = ExtResource("1_7c7od")
 create_ants = true
+max_ants = 200
 
 [node name="Home" parent="." instance=ExtResource("4_onc10")]
 position = Vector2(1087, 565)
@@ -21,27 +22,33 @@ position = Vector2(1087, 537)
 
 [node name="Food" parent="foods" instance=ExtResource("3_4uhpw")]
 position = Vector2(1095, 208)
+food_amout = 5
 
 [node name="Food2" parent="foods" instance=ExtResource("3_4uhpw")]
 position = Vector2(820, 536)
 
 [node name="Food3" parent="foods" instance=ExtResource("3_4uhpw")]
 position = Vector2(849, 381)
+food_amout = 5
 
 [node name="Food4" parent="foods" instance=ExtResource("3_4uhpw")]
 position = Vector2(944, 279)
+food_amout = 4
 
 [node name="Food5" parent="foods" instance=ExtResource("3_4uhpw")]
 position = Vector2(289, 285)
+food_amout = 1000
 
 [node name="Food6" parent="foods" instance=ExtResource("3_4uhpw")]
 position = Vector2(200, 449)
 
 [node name="Food7" parent="foods" instance=ExtResource("3_4uhpw")]
 position = Vector2(438, 149)
+food_amout = 20
 
 [node name="Food8" parent="foods" instance=ExtResource("3_4uhpw")]
 position = Vector2(599, 68)
+food_amout = 200
 
 [node name="pheremones" type="Node" parent="."]
 

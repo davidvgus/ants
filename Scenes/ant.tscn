@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvdnvvd8stnnf"]
+[gd_scene load_steps=9 format=3 uid="uid://bvdnvvd8stnnf"]
 
 [ext_resource type="Script" path="res://Scripts/ant.gd" id="1_dchjr"]
 [ext_resource type="Texture2D" uid="uid://ctf84d1e1v1hb" path="res://assets/images/spaceAstronauts_002.png" id="1_r446x"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://States/AntIdle.gd" id="4_wifeu"]
 [ext_resource type="Script" path="res://States/AntFollow.gd" id="5_va3jl"]
 [ext_resource type="Script" path="res://States/AntGoHome.gd" id="6_q1daf"]
+[ext_resource type="Script" path="res://States/AntInPheromone.gd" id="7_5giix"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ktgnw"]
 radius = 17.6667
@@ -16,6 +17,7 @@ scale = Vector2(0.3, 0.3)
 collision_layer = 2
 collision_mask = 20
 script = ExtResource("1_dchjr")
+random_move = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -1.5708
@@ -42,3 +44,6 @@ script = ExtResource("5_va3jl")
 
 [node name="AntGoHome" type="Node" parent="StateMachine"]
 script = ExtResource("6_q1daf")
+
+[node name="AntInPheromone" type="Node" parent="StateMachine"]
+script = ExtResource("7_5giix")
