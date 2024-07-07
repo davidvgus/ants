@@ -7,6 +7,7 @@ var strength: float = 50.0
 var evaporation_rate: float = 10.0
 const MIN_RADIUS: float = 0.1
 const MAX_RADIUS: float = 10.0
+@onready var origin_direction: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
     add_to_group("pheromones")
@@ -50,3 +51,11 @@ static func get_min_radius() -> float:
 
 static func get_max_radius() -> float:
     return MAX_RADIUS
+
+func set_scent_direction(rotation_angle: float) -> void:
+    rotation = rotation_angle - PI / 2
+    #print("pheromone.rotation: ", rotation)
+    pass
+
+func get_scent_direction() -> float:
+    return rotation

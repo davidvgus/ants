@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://csbp24jcrqfot"]
+[gd_scene load_steps=5 format=3 uid="uid://csbp24jcrqfot"]
 
 [ext_resource type="Script" path="res://Scripts/pheromone.gd" id="1_nygsd"]
 [ext_resource type="Texture2D" uid="uid://bitpctxawbvbw" path="res://assets/images/spaceParts_080.png" id="1_tdqcn"]
+[ext_resource type="Texture2D" uid="uid://i2bp118wjkcd" path="res://assets/images/spaceMissiles_027.png" id="3_xiwkp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_levsg"]
 radius = 13.0
@@ -14,6 +15,11 @@ script = ExtResource("1_nygsd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["pheremones"]]
 texture = ExtResource("1_tdqcn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(-1.19209e-07, -7)
+scale = Vector2(0.666667, 1)
+texture = ExtResource("3_xiwkp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_levsg")

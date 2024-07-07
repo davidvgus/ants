@@ -30,14 +30,13 @@ func Physics_Update(delta: float) -> void:
         var target_point = ant.path[ant.path.size() - 1]
         var direction = (target_point - ant.global_position)
         ant.velocity = direction.normalized() * move_speed
-        ant.drop_pheromone()
-        #if direction.length() > 20:
-        #    ant.drop_pheromone()
+
+        print("ant.angle: ", rad_to_deg(ant.velocity.angle()))
+        ant.drop_pheromone(ant.velocity.angle())
 
         if direction.length() < 1:
             ant.path.remove_at(ant.path.size() - 1)
             if ant.path.size() == 0:
+                ant.current_food_target = null
+                #ant.last_pheromone_position = null
                 transitioned.emit(self, "AntIdle")
-
-#    if direction.length() < 10:
-#        transitioned.emit(self, "AntIdle")

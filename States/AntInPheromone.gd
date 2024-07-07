@@ -19,9 +19,9 @@ func Update(_delta: float) -> void:
     pheromone = ant.current_pheromone
 
     if pheromone:
-        print("AntInPheromone: pheremone is there and ant is there")
-        ant.move_direction = (pheromone.global_position - ant.global_position).normalized()
-        
+        var direction_from_rotation = Vector2.RIGHT.rotated(pheromone.rotation)
+
+        ant.move_direction = direction_from_rotation.rotated( - (PI / 2))
         ant.velocity = ant.move_direction * move_speed
         ant.current_pheromone = null
     else:

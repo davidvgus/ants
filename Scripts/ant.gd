@@ -55,10 +55,11 @@ func drop_nav_point():
     #new_nav_point.connect("ant_entered", Callable(self, "_on_nav_point_entered"))
     get_parent().add_child(new_nav_point)
 
-func drop_pheromone():
+func drop_pheromone(angle: float):
     if can_drop_pheromone():
         var new_pheromone = pheromone.instantiate()
         new_pheromone.global_position = nozzle.global_position
+        new_pheromone.set_scent_direction(angle)
         get_parent().add_child(new_pheromone)
         last_pheromone_position = nozzle.global_position
 
